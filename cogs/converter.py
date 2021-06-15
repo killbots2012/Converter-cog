@@ -17,7 +17,7 @@ class Converter(commands.Cog):
         if "km" in question:
             question = ''.join(question.split())[:-2]
             kmToMile = float(question)
-            questionConvert = question / 1.60934
+            questionConvert = kmToMile / 1.60934
             formated_convertion = "%.2f" % questionConvert
             await ctx.send(f"{formated_convertion} MPH".upper())
             
@@ -25,7 +25,7 @@ class Converter(commands.Cog):
         elif "mile" in question:
             question = ''.join(question.split())[:-5]
             mileToKM = float(question)
-            questionConvert = kmhToMph * 1.60934
+            questionConvert = mileToKM * 1.60934
             formated_convertion = "%.2f" % questionConvert
             await ctx.send(f"{formated_convertion} KM/ h".upper())
         # Litre to gallon

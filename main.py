@@ -38,6 +38,6 @@ for filename in os.listdir('./cogs'):
         client.load_extension(f'cogs.{filename[:-3]}')
        
 
-client.run("NjgzMTA4NTg2NzU4NjAyNzY5.Xlmwcg.09OtrMUM8UIKaQ7nwoZG_aBAWiY")
+client.run("TOKEN HERE")
 
 

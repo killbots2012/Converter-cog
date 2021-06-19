@@ -7,7 +7,7 @@ import os
 
 
 client = commands.Bot(command_prefix='t-')
-client.remove_command('ping')
+
 
 
 #start up
@@ -29,15 +29,11 @@ async def reload(ctx, extention):
 async def unload(ctx, extention):
     client.unload_extension(f'cogs.{extention}')
 
-
-
-
-
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
        
 
-client.run("TOKEN HERE")
+client.run("Token Here")
 
 

@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import random
+import re
 
 class Converter(commands.Cog):
 
@@ -14,76 +14,161 @@ class Converter(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         # km to mile
-         if  "km" in message.content:
-            print(message.content)
-            question = message.content.split(" ")[0]
-            kmToMile = float(question)
-            questionConvert = kmToMile / 1.60934
-            formated_convertion = "%.2f" % questionConvert
-            await message.channel.send(f"{formated_convertion} MPH".upper())
-            
+        if "km" in message.content: 
+            kmtoMile = ""
+            for word in message.content.split():
+             if word.isdigit():
+                 kmtoMile = int(word)
+                 questionConvert = kmtoMile / 1.60934
+                 formated_convertion = "%.2f" % questionConvert
+                 await message.channel.send(f"{word} km = {formated_convertion} miles".upper()) 
+         
+        elif "kph" in message.content:
+            kphtoMph = ""
+            for word in message.content.split():
+             if word.isdigit():
+                 kphtoMph = int(word)
+                 questionConvert = kphtoMph / 1.60934
+                 formated_convertion = "%.2f" % questionConvert
+                 await message.channel.send(f"{word} kph = {formated_convertion} mph".upper())
+
         # # Mile to km 
-         elif "mile" in message.content:
-            print(message.content)
-            question = message.content.split(" ")[0]
-            mileToKM = float(question)
-            questionConvert = mileToKM * 1.60934
-            formated_convertion = "%.2f" % questionConvert
-            await message.channel.send(f"{formated_convertion} KM/ h".upper())
+        elif "mile" in message.content:
+            mileToKM = ""
+            for word in message.content.split():
+             if word.isdigit():
+                 mileToKM = int(word)
+                 questionConvert = mileToKM * 1.60934
+                 formated_convertion = "%.2f" % questionConvert
+                 await message.channel.send(f"{word} mile = {formated_convertion} km".upper())
+
+        elif "mph" in message.content:
+            mileToKM = ""
+            for word in message.content.split():
+             if word.isdigit():
+                 mileToKM = int(word)
+                 questionConvert = mileToKM * 1.60934
+                 formated_convertion = "%.2f" % questionConvert
+                 await message.channel.send(f"{word} mph = {formated_convertion} kph".upper())                   
         
         # # Litre to gallon
-         elif "litre" in message.content:
-            print(message.content)
-            question = message.content.split(" ")[0]
-            litresToGallon = float(question)
-            questionConvert = litresToGallon / 3.785
-            formated_convertion = "%.2f" % questionConvert
-            await message.channel.send(f"{formated_convertion} Gallon".upper())
+        elif "litre" in message.content:
+            litresToGallon = ""
+            for word in message.content.split():
+             if word.isdigit():
+                litresToGallon = int(word)
+                questionConvert = litresToGallon / 3.785
+                formated_convertion = "%.2f" % questionConvert
+                await message.channel.send(f"{word} litres = {formated_convertion} Gallon".upper())
         
         # gallon to Litre
-         elif "gallon" in message.content:
-            print(message.content)
-            question = message.content.split(" ")[0]
-            gallonToLitre = float(question)
-            questionConvert = gallonToLitre * 3.785
-            formated_convertion = "%.2f" % questionConvert
-            await message.channel.send(f"{formated_convertion} Litre".upper())
+        elif "gallon" in message.content:
+            gallonToLitre = ""
+            for word in message.content:
+             if word.isdigit():
+                 gallonToLitre = int(word)
+                 questionConvert = gallonToLitre * 3.785
+                 formated_convertion = "%.2f" % questionConvert
+                 await message.channel.send(f"{word} gallon = {formated_convertion} Litre".upper())
        
         # # inch to cm
-         elif "inch" in message.content:
-            print(message.content)
-            question = message.content.split(" ")[0]
-            question = float(question)
-            questionConvert = question * 2.54 
-            formated_convertion = "%.2f" % questionConvert
-            await message.channel.send(f"{formated_convertion} cm".upper())
+        elif "inch" and "in" in message.content:
+            inchToCm= ""
+            for word in message.content:
+             if word.isdigit():
+                inchToCm = int(word)
+                questionConvert = inchToCm * 2.54 
+                formated_convertion = "%.2f" % questionConvert
+                await message.channel.send(f"{word} inch = {formated_convertion} cm".upper())
         
         # # cm to inch
-         elif "cm" in message.content:
-            print(message.content)
-            question = message.content.split(" ")[0]
-            FootToCM = float(question)
-            questionConvert = FootToCM / 2.54 
-            formated_convertion = "%.2f" % questionConvert
-            await message.channel.send(f"{formated_convertion} Inch".upper())        
+        elif "cm" and "centimeter" and "centimetre" in message.content:
+            cmToInch =""
+            for word in message.content:
+             if word.isdigit():
+                cmToInch = int(word)
+                questionConvert = cmToInch / 2.54 
+                formated_convertion = "%.2f" % questionConvert
+                await message.channel.send(f"{word} cm = {formated_convertion} Inch".upper())
+        
+        # Foot to meter
+        elif "foot" and "feet" in message.content:
+            FootToMeter = ""
+            for word in message.content:
+             if word.isdigit():
+                FootToMeter = int(word)
+                questionConvert = FootToMeter / 3.281 
+                formated_convertion = "%.2f" % questionConvert
+                await message.channel.send(f"{word} foot {formated_convertion} meter".upper())
+
+        elif "meter" in message.content:
+            meterToFeet = ""
+            for word in message.content:
+             if word.isdigit():
+                meterToFeet = int(word)
+                questionConvert = meterToFeet * 3.281 
+                formated_convertion = "%.2f" % questionConvert
+                await message.channel.send(f"{word} meter = {formated_convertion} feet".upper())               
+
+        # pound to kg
+        elif "pound" in message.content:
+             poundToKg = ""
+             for word in message.content:
+              if word.isdigit():
+                 poundToKg = int(word)
+                 questionConvert = poundToKg / 2.20462
+                 formated_convertion = "%.2f" % questionConvert
+                 await message.channel.send(f"{word} Ib {formated_convertion} kg".upper())
+        # kg to pound          
+        elif "kg" in message.content:
+            kgToPound = ""
+            for word in message.content:
+              if word.isdigit():
+                 kgToPound = int(word)   
+                 questionConvert = kgToPound * 2.20462
+                 formated_convertion = "%.2f" % questionConvert
+                 await message.channel.send(f"{word} kg = {formated_convertion} pound".upper()) 
+
+        # PSI to BAR
+        elif "psi" in message.content:
+            psiToBar = ""
+            for word in message.content:
+              if word.isdigit():
+                  psiToBar = int(word)  
+                  questionConvert = psiToBar * 14.504
+                  formated_convertion = "%.2f" % questionConvert
+                  await message.channel.send(f"{word} psi = {formated_convertion} bar".upper()) 
+
+         # PSI to BAR
+        elif "bar" in message.content:
+            barToPsi = ""
+            for word in message.content:
+             if word.isdigit():
+              barToPsi = int(word)
+              questionConvert = barToPsi * 14.504
+              formated_convertion = "%.2f" % questionConvert
+              await message.channel.send(f"{word} bar = {formated_convertion} PSI".upper())   
+             
 
         # # celsius to fahrenheight
-         elif "c" in message.content:
-            print(message.content)
-            question = message.content.split(" ")[0]
-            CelsiusToFahrenheit = float(question)
-            questionConvert = (CelsiusToFahrenheit * 5/9) + 32 
-            formated_convertion = "%.2f" % questionConvert
-            await message.channel.send(f"{formated_convertion} Fahrenheiht".upper())
+        elif "c" in message.content:
+            CelsiusToFahrenheit = ""
+            for word in message.content:
+             if word.isdigit:
+              CelsiusToFahrenheit = int(word)
+              questionConvert = (CelsiusToFahrenheit * 5/9) + 32 
+              formated_convertion = "%.2f" % questionConvert
+             await message.channel.send(f"{word} celsius = {formated_convertion} Fahrenheiht".upper())
 
         # # fahrenheight to celsius
-         elif "f" in message.content:
-            print(message.content)
-            question = message.content.split(" ")[0]
-            FahrenheitToCelsius = float(question)
-            questionConvert = (FahrenheitToCelsius - 32) + 5/9 
-            formated_convertion = "%.2f" % questionConvert
-            await message.channel.send(f"{formated_convertion} Celsius".upper())
+        elif "f" in message.content:
+            FahrenheitToCelsius = ""
+            for word in message.content:
+             if word.isdigit:
+              FahrenheitToCelsius = int(word)
+              questionConvert = (FahrenheitToCelsius - 32) + 5/9 
+              formated_convertion = "%.2f" % questionConvert
+              await message.channel.send(f"{word} fahrenheight = {formated_convertion} Celsius".upper())
 
 
 def setup(client):
